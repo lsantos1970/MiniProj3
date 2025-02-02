@@ -29,3 +29,70 @@ router.route('/:id')
     .delete(AuthController.checkAuth, [param('id').isMongoId()], SponsorController.delete);
 
 module.exports = router;
+
+/**
+ * @swagger
+ * /sponsors:
+ *   get:
+ *     summary: Lista todos os sponsors
+ *     responses:
+ *       200:
+ *         description: Lista de sponsors
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   phone:
+ *                     type: string
+ *                   category:
+ *                     type: string
+ *                   website:
+ *                     type: string
+ *   post:
+ *     summary: Cria um novo sponsor
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *               category:
+ *                 type: string
+ *               website:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Sponsor criado com sucesso
+ */
+
+/**
+ * @swagger
+ * /sponsors/{id}:
+ *   get:
+ *     summary: Obtém um sponsor por ID
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Dados do sponsor
+ *       404:
+ *         description: Sponsor não encontrado
+ */

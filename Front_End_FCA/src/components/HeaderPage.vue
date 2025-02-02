@@ -2,7 +2,7 @@
   <b-container>
     <b-row class="text-center">
       <b-col>
-        <h2 class="page-section-heading mt-5">{{title.toUpperCase()}}</h2>
+        <h2 class="page-section-heading mt-5">{{ title.toUpperCase() }}</h2>
       </b-col>
     </b-row>
     <b-row class="text-center">

@@ -10,19 +10,20 @@
       class="mb-5"
     >
       <b-card-text>
-        <kbd>{{ animal.group }}</kbd>&nbsp;
+        <kbd>{{ animal.group }}</kbd
+        >&nbsp;
         <kbd style="background-color: red">nível {{ animal.level }}</kbd>
       </b-card-text>
-      <b-card-text>{{animal.description}}</b-card-text>
+      <b-card-text>{{ animal.description }}</b-card-text>
       <b-card-text align="left">
-        <i class="fas fa-star fa-lg" :style="{color}" @click="evaluate()"></i>
-        {{animal.evaluation.length}}
+        <i class="fas fa-star fa-lg" :style="{ color }" @click="evaluate()"></i>
+        {{ animal.evaluation.length }}
         <i class="fas fa-comment fa-lg ml-2"></i>
-        {{animal.comments.length}}
+        {{ animal.comments.length }}
       </b-card-text>
 
       <router-link
-        :to="{name: 'animal', params:{animalId: animal._id}}"
+        :to="{ name: 'animal', params: { animalId: animal._id } }"
         tag="b-button"
         variant="outline-success"
         align="center"
@@ -30,10 +31,15 @@
       >
         <i class="fas fa-search"></i> ver animal
       </router-link>
-      <b-button variant="info" :href="'https://www.facebook.com/sharer/sharer.php?u=' + animal.links[0].url" target="_blank">
+      <b-button
+        variant="info"
+        :href="
+          'https://www.facebook.com/sharer/sharer.php?u=' + animal.links[0].url
+        "
+        target="_blank"
+      >
         <i class="fab fa-facebook"></i> Partilhar
       </b-button>
-
     </b-card>
   </b-col>
 </template>

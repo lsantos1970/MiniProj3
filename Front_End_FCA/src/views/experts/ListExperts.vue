@@ -7,13 +7,17 @@
         <b-col cols="1"></b-col>
         <b-col>
           <router-link
-            :to="{name:'addQuiz'}"
+            :to="{ name: 'addQuiz' }"
             tag="button"
             class="btn btn-outline-success mr-2 mt-2"
           >
             <i class="fas fa-plus-square"></i> ADICIONAR QUIZ
           </router-link>
-          <router-link :to="{name:'admin'}" tag="button" class="btn btn-outline-info mr-2 mt-2">
+          <router-link
+            :to="{ name: 'admin' }"
+            tag="button"
+            class="btn btn-outline-info mr-2 mt-2"
+          >
             <i class="fas fa-bars"></i> MENU PRINCIPAL
           </router-link>
         </b-col>
@@ -28,7 +32,11 @@
               <tr>
                 <th scope="col">
                   NOME
-                  <i class="fas fa-arrow-up" v-if="sortType===1" @click="sort()"></i>
+                  <i
+                    class="fas fa-arrow-up"
+                    v-if="sortType === 1"
+                    @click="sort()"
+                  ></i>
                   <i class="fas fa-arrow-down" v-else @click="sort()"></i>
                 </th>
                 <th scope="col">NÍVEL</th>
@@ -38,12 +46,12 @@
             </thead>
             <tbody>
               <tr v-for="quiz of quizzes" :key="quiz._id">
-                <td class="pt-4">{{quiz.name}}</td>
-                <td class="pt-4">{{quiz.level}}</td>
-                <td class="pt-4">{{quiz.points}}</td>
+                <td class="pt-4">{{ quiz.name }}</td>
+                <td class="pt-4">{{ quiz.level }}</td>
+                <td class="pt-4">{{ quiz.points }}</td>
                 <td>
                   <router-link
-                    :to="{name:'editQuiz', params:{quizId: quiz._id}}"
+                    :to="{ name: 'editQuiz', params: { quizId: quiz._id } }"
                     tag="button"
                     class="btn btn-outline-success mr-2 mt-2"
                   >
@@ -77,10 +85,10 @@
 <script>
 import { FETCH_QUIZZES, REMOVE_QUIZ } from "@/store/quizzes/quiz.constants";
 import { mapGetters } from "vuex";
-import HeaderPage from "@/components/HeaderPage.vue"
+import HeaderPage from "@/components/HeaderPage.vue";
 export default {
   name: "ListQuizzes",
-   components: {
+  components: {
     HeaderPage
   },
   data: function() {
@@ -90,25 +98,27 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("quiz", ["getQuizzes","getMessage"])
+    ...mapGetters("quiz", ["getQuizzes", "getMessage"])
   },
   methods: {
     fetchQuizzes() {
-      this.$store.dispatch(`quiz/${FETCH_QUIZZES}`).then( 
+      this.$store.dispatch(`quiz/${FETCH_QUIZZES}`).then(
         () => {
           this.quizzes = this.getQuizzes;
-        }, err => {
-          this.$alert(`${err.message}`, 'Erro', 'error');
-        });
+        },
+        err => {
+          this.$alert(`${err.message}`, "Erro", "error");
+        }
+      );
     },
     sort() {
-      this.quizzes.sort(this.compareNames)
-      this.sortType *= -1      
+      this.quizzes.sort(this.compareNames);
+      this.sortType *= -1;
     },
-    compareNames(q1,q2) {
-      if(q1.name > q2.name) return 1 * this.sortType
-      else if(q1.name < q2.name) return -1 * this.sortType
-      else return 0
+    compareNames(q1, q2) {
+      if (q1.name > q2.name) return 1 * this.sortType;
+      else if (q1.name < q2.name) return -1 * this.sortType;
+      else return 0;
     },
     viewQuiz(id) {
       const quiz = this.quizzes.find(quiz => quiz._id === id);
@@ -125,9 +135,9 @@ export default {
       let response = `
           <p><b>Nível</b> ${quiz.level}<br>(${quiz.points} pontos)</p>
           <p><b>Lista de questões:</b></p>          
-      `          
+      `;
       for (const question of quiz.questions) {
-       response += `<p>${question.question}</p>`
+        response += `<p>${question.question}</p>`;
       }
       return response;
     },
@@ -140,11 +150,7 @@ export default {
       ).then(
         () => {
           this.$store.dispatch(`quiz/${REMOVE_QUIZ}`, id).then(() => {
-            this.$alert(
-              this.getMessage,
-              "Questão removida!",
-              "success"
-            );
+            this.$alert(this.getMessage, "Questão removida!", "success");
             this.fetchQuizzes();
           });
         },

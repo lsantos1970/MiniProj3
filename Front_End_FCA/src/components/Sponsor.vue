@@ -13,7 +13,7 @@
     </div>
 
     <div>
-      <h2>{{ isEditing ? 'Edit Sponsor' : 'Add Sponsor' }}</h2>
+      <h2>{{ isEditing ? "Edit Sponsor" : "Add Sponsor" }}</h2>
       <form @submit.prevent="isEditing ? updateSponsor() : addSponsor()">
         <div>
           <label>Name:</label>
@@ -44,7 +44,7 @@
           <label>Photo:</label>
           <input type="file" @change="handlePhotoUpload" />
         </div>
-        <button type="submit">{{ isEditing ? 'Update' : 'Add' }}</button>
+        <button type="submit">{{ isEditing ? "Update" : "Add" }}</button>
         <button type="button" @click="resetForm">Cancel</button>
       </form>
     </div>
@@ -65,14 +65,14 @@ export default {
         phone: "",
         category: "dogs",
         website: "",
-        photo: null,
+        photo: null
       },
-      isEditing: false,
+      isEditing: false
     };
   },
   methods: {
     fetchSponsors() {
-      axios.get("/api/sponsors").then((response) => {
+      axios.get("/api/sponsors").then(response => {
         this.sponsors = response.data;
       });
     },
@@ -105,17 +105,17 @@ export default {
         phone: "",
         category: "dogs",
         website: "",
-        photo: null,
+        photo: null
       };
       this.isEditing = false;
     },
     handlePhotoUpload(event) {
       this.form.photo = event.target.files[0];
-    },
+    }
   },
   mounted() {
     this.fetchSponsors();
-  },
+  }
 };
 </script>
 

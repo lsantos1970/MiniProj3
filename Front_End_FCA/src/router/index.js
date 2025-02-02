@@ -114,7 +114,7 @@ const routes = [
       rule: "user"
     }
   },
-  
+
   {
     path: "/quizzes",
     name: "quizzes",

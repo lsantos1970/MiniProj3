@@ -68,13 +68,13 @@ export default {
       filterLevel: "todos",
       reverse: false,
       animals: [],
-      userLevel:0
+      userLevel: 0
     };
   },
   computed: {
     ...mapGetters(["getUserLevelByPoints"]),
-    ...mapGetters('auth', ["getProfile"]),
-    ...mapGetters("animal", ["getAnimals","getMessage"]),
+    ...mapGetters("auth", ["getProfile"]),
+    ...mapGetters("animal", ["getAnimals", "getMessage"]),
     classSorter() {
       return {
         "fas fa-sort-alpha-up": !this.reverse,
@@ -119,16 +119,16 @@ export default {
     }
   },
   created() {
-    this.$store
-      .dispatch(`animal/${FETCH_ANIMALS}`)
-      .then(
-        () => {
-          this.animals = this.getAnimals.filter(
-            animal => animal.level <= this.getUserLevelByPoints(this.getProfile.gamification.points).level
-          )
-        },
-        err => this.$alert(`${err.message}`, "Erro", "error")
-      );
+    this.$store.dispatch(`animal/${FETCH_ANIMALS}`).then(
+      () => {
+        this.animals = this.getAnimals.filter(
+          animal =>
+            animal.level <=
+            this.getUserLevelByPoints(this.getProfile.gamification.points).level
+        );
+      },
+      err => this.$alert(`${err.message}`, "Erro", "error")
+    );
   }
 };
 </script>

@@ -1,25 +1,27 @@
 <template>
   <section class="page-section">
     <b-container>
-      <HeaderPage title="Gestão de Questões"/>
+      <HeaderPage title="Gestão de Questões" />
       <!--MENU DE TOPO-->
       <b-row class="mb-4">
         <b-col cols="1"></b-col>
         <b-col>
           <router-link
-            :to="{name:'addQuestion'}"
+            :to="{ name: 'addQuestion' }"
             tag="button"
             class="btn btn-outline-success mr-2 mt-2"
-          ><i class="fas fa-plus-square"></i> ADICIONAR QUESTÃO</router-link>
+            ><i class="fas fa-plus-square"></i> ADICIONAR QUESTÃO</router-link
+          >
           <router-link
-            :to="{name:'admin'}"
+            :to="{ name: 'admin' }"
             tag="button"
             class="btn btn-outline-info mr-2 mt-2"
-          ><i class="fas fa-bars"></i> MENU PRINCIPAL</router-link>
+            ><i class="fas fa-bars"></i> MENU PRINCIPAL</router-link
+          >
         </b-col>
         <b-col cols="1"></b-col>
       </b-row>
-      
+
       <!--TABLE-->
       <b-row>
         <b-col cols="1"></b-col>
@@ -29,39 +31,51 @@
               <tr>
                 <th scope="col">
                   QUESTÃO
-                  <i class="fas fa-arrow-up" v-if="sortType===1" @click="sort()"></i>
-                  <i class="fas fa-arrow-down" v-else  @click="sort()"></i>                
-                  </th>
+                  <i
+                    class="fas fa-arrow-up"
+                    v-if="sortType === 1"
+                    @click="sort()"
+                  ></i>
+                  <i class="fas fa-arrow-down" v-else @click="sort()"></i>
+                </th>
                 <th scope="col">NÍVEL</th>
                 <th scope="col">AÇÕES</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="question of questions" :key="question._id">
-                <td  class="pt-4">{{question.question}}</td>
-                <td class="pt-4">{{question.level}}</td>
+                <td class="pt-4">{{ question.question }}</td>
+                <td class="pt-4">{{ question.level }}</td>
                 <td>
                   <router-link
-                    :to="{name:'editQuestion', params:{questionId: question._id}}"
+                    :to="{
+                      name: 'editQuestion',
+                      params: { questionId: question._id }
+                    }"
                     tag="button"
                     class="btn btn-outline-success mr-2"
-                  ><i class="fas fa-edit"></i> EDITAR</router-link>
+                    ><i class="fas fa-edit"></i> EDITAR</router-link
+                  >
                   <button
                     @click="viewQuestion(question._id)"
                     type="button"
                     class="btn btn-outline-warning mr-2"
-                  ><i class="fas fa-search"></i> VER</button>
+                  >
+                    <i class="fas fa-search"></i> VER
+                  </button>
                   <button
                     @click="removeQuestion(question._id)"
                     type="button"
                     class="btn btn-outline-danger mr-2"
-                  ><i class="fas fa-trash-alt"></i> REMOVER</button>
+                  >
+                    <i class="fas fa-trash-alt"></i> REMOVER
+                  </button>
                 </td>
               </tr>
             </tbody>
           </table>
         </b-col>
-          <b-col cols="1"></b-col>
+        <b-col cols="1"></b-col>
       </b-row>
     </b-container>
   </section>
@@ -72,13 +86,12 @@ import {
   FETCH_QUESTIONS,
   REMOVE_QUESTION
 } from "@/store/questions/question.constants";
-import HeaderPage from "@/components/HeaderPage.vue"
+import HeaderPage from "@/components/HeaderPage.vue";
 import { mapGetters } from "vuex";
-
 
 export default {
   name: "ListQuestions",
-   components: {
+  components: {
     HeaderPage
   },
   data: function() {
@@ -88,7 +101,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("question", ["getQuestions","getMessage"])
+    ...mapGetters("question", ["getQuestions", "getMessage"])
   },
   methods: {
     fetchQuestions() {
@@ -98,16 +111,17 @@ export default {
         },
         err => {
           this.$alert(`${err.message}`, "Erro", "error");
-        });
+        }
+      );
     },
     sort() {
-      this.questions.sort(this.compareNames)
-      this.sortType *= -1      
+      this.questions.sort(this.compareNames);
+      this.sortType *= -1;
     },
-    compareNames(u1,u2) {
-      if(u1.question > u2.question) return 1 * this.sortType
-      else if(u1.question < u2.question) return -1 * this.sortType
-      else return 0
+    compareNames(u1, u2) {
+      if (u1.question > u2.question) return 1 * this.sortType;
+      else if (u1.question < u2.question) return -1 * this.sortType;
+      else return 0;
     },
     viewQuestion(id) {
       const question = this.questions.find(question => question._id === id);
@@ -124,14 +138,17 @@ export default {
       let response = `
           <p><b>Descrição:</b> ${question.description}</p>
           <p><b>Tipo:</b> ${question.type}</p>
-          <p><b>Lista de respostas possíveis (correta a verde):</b></p>`          
-          for ( let i=0; i<question.answers.length;i++) {
-            if(question.answers[i].correct)
-            response += `<p class="green"}>${i+1}. ${question.answers[i].title}</p>`
-            else
-            response += `<p class="red"}>${i+1}. ${question.answers[i].title}</p>`
-              
-          }
+          <p><b>Lista de respostas possíveis (correta a verde):</b></p>`;
+      for (let i = 0; i < question.answers.length; i++) {
+        if (question.answers[i].correct)
+          response += `<p class="green"}>${i + 1}. ${
+            question.answers[i].title
+          }</p>`;
+        else
+          response += `<p class="red"}>${i + 1}. ${
+            question.answers[i].title
+          }</p>`;
+      }
       return response;
     },
     removeQuestion(id) {
@@ -143,11 +160,7 @@ export default {
       ).then(
         () => {
           this.$store.dispatch(`question/${REMOVE_QUESTION}`, id).then(() => {
-            this.$alert(
-              this.getMessage,
-              "Questão removida!",
-              "success"
-            );
+            this.$alert(this.getMessage, "Questão removida!", "success");
             this.fetchQuestions();
           });
         },
@@ -164,10 +177,10 @@ export default {
 </script>
 <style>
 .green {
-  color: green
+  color: green;
 }
 
 .red {
-  color: red
+  color: red;
 }
 </style>

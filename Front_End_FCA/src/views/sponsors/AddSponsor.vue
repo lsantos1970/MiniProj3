@@ -1,8 +1,8 @@
 <template>
   <section class="page-section">
     <b-container>
-      <HeaderPage title="Adicionar Quiz"/>
-      
+      <HeaderPage title="Adicionar Quiz" />
+
       <!--FORM-->
       <b-row>
         <b-col cols="2"></b-col>
@@ -36,7 +36,7 @@
               <input
                 v-model="points"
                 type="text"
-                 onmouseenter="(this.type='number')"
+                onmouseenter="(this.type='number')"
                 onmouseleave="(this.type='text')"
                 min="1"
                 class="form-control"
@@ -69,7 +69,8 @@
                         v-for="q in getQuestionsByLevel"
                         :key="q._id"
                         :value="q._id"
-                      >{{q.question}}</option>
+                        >{{ q.question }}</option
+                      >
                     </select>
                   </div>
                   <div class="col-md-3">
@@ -77,24 +78,31 @@
                       @click="removeQuestion(index)"
                       type="button"
                       class="btn btn-outline-danger mr-2"
-                    ><i class="fas fa-trash"></i> REMOVER</button>
+                    >
+                      <i class="fas fa-trash"></i> REMOVER
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-            
+
             <button
               @click="addQuestion"
               type="button"
               class="btn btn-outline-success mr-2"
-            ><i class="fas fa-plus-square"></i> ADICIONAR QUESTÕES</button>
+            >
+              <i class="fas fa-plus-square"></i> ADICIONAR QUESTÕES
+            </button>
             <!--<pre>{{ $data }}</pre>-->
-            <button type="submit" class="btn btn-outline-success mr-2"><i class="fas fa-save"></i> GRAVAR QUIZ</button>
+            <button type="submit" class="btn btn-outline-success mr-2">
+              <i class="fas fa-save"></i> GRAVAR QUIZ
+            </button>
             <router-link
-              :to="{name: 'listQuizzes'}"
+              :to="{ name: 'listQuizzes' }"
               tag="button"
               class="btn btn-outline-danger"
-            ><i class="fas fa-window-close"></i> CANCELAR</router-link>
+              ><i class="fas fa-window-close"></i> CANCELAR</router-link
+            >
           </form>
         </b-col>
         <b-col cols="2"></b-col>
@@ -105,7 +113,7 @@
 
 <script>
 import { ADD_QUIZ } from "@/store/quizzes/quiz.constants";
-import HeaderPage from "@/components/HeaderPage.vue"
+import HeaderPage from "@/components/HeaderPage.vue";
 import { FETCH_QUESTIONS } from "@/store/questions/question.constants";
 import router from "@/router";
 
@@ -113,7 +121,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "AddQuiz",
-   components: {
+  components: {
     HeaderPage
   },
   data: () => {
@@ -155,7 +163,7 @@ export default {
         .then(
           () => {
             this.$alert(this.getMessage, "Quiz adicionado!", "success");
-            router.push({name: 'listQuizzes'});
+            router.push({ name: "listQuizzes" });
           },
           err => {
             this.$alert(`${err.message}`, "Erro", "error");

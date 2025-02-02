@@ -1,8 +1,8 @@
 <template>
   <section class="page-section">
-     <b-container>
-      <HeaderPage title="Editar perfil"/>
-   
+    <b-container>
+      <HeaderPage title="Editar perfil" />
+
       <!--FORM-->
       <b-row>
         <b-col cols="2"></b-col>
@@ -19,16 +19,16 @@
               />
             </div>
             <div class="form-group">
-            <input
-              v-model="user.birth_date"
-              type="date"
-              onmouseenter="(this.type='date')"
-              onmouseleave="(this.type='text')"
-              class="form-control form-control-lg"
-              id="txtBirthDate"
-              placeholder="escreve data de nascimento"
-              required
-            />
+              <input
+                v-model="user.birth_date"
+                type="date"
+                onmouseenter="(this.type='date')"
+                onmouseleave="(this.type='text')"
+                class="form-control form-control-lg"
+                id="txtBirthDate"
+                placeholder="escreve data de nascimento"
+                required
+              />
             </div>
             <div class="form-group">
               <textarea
@@ -61,7 +61,7 @@
                 required
               />
             </div>
-            
+
             <div class="form-group">
               <input
                 v-model="user.auth.password"
@@ -82,23 +82,25 @@
               />
             </div>
             <button type="submit" class="btn btn-outline-success btn-lg mr-2">
-              <i class="fas fa-edit"></i> ATUALIZAR</button>
+              <i class="fas fa-edit"></i> ATUALIZAR
+            </button>
             <router-link
-              :to="{name: 'profile'}"
+              :to="{ name: 'profile' }"
               tag="button"
               class="btn btn-outline-danger btn-lg"
-            ><i class="fas fa-window-close"></i> CANCELAR</router-link>
+              ><i class="fas fa-window-close"></i> CANCELAR</router-link
+            >
           </form>
         </b-col>
         <b-col cols="2"></b-col>
       </b-row>
-     </b-container>
+    </b-container>
   </section>
 </template>
 
 <script>
 import { EDIT_USER } from "@/store/users/user.constants";
-import HeaderPage from "@/components/HeaderPage.vue"
+import HeaderPage from "@/components/HeaderPage.vue";
 import router from "@/router";
 import { mapGetters } from "vuex";
 
@@ -119,12 +121,8 @@ export default {
     update() {
       this.$store.dispatch(`user/${EDIT_USER}`, this.$data.user).then(
         () => {
-          this.$alert(
-            this.getMessage,
-            "Perfil atualizado!",
-            "success"
-          );
-          router.push({name: 'profile'});
+          this.$alert(this.getMessage, "Perfil atualizado!", "success");
+          router.push({ name: "profile" });
         },
         err => {
           this.$alert(`${err.message}`, "Erro", "error");

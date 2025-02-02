@@ -4,11 +4,11 @@ import router from "./router";
 import store from "./store";
 
 import VueSimpleAlert from "vue-simple-alert";
-import BootstrapVue from 'bootstrap-vue'
-import "bootstrap-vue/dist/bootstrap-vue.css"
+import BootstrapVue from "bootstrap-vue";
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
-Vue.use(BootstrapVue)
-Vue.use(VueSimpleAlert)
+Vue.use(BootstrapVue);
+Vue.use(VueSimpleAlert);
 
 Vue.config.productionTip = false;
 

@@ -1,10 +1,10 @@
 <template>
   <section class="page-section">
     <b-container>
-      <HeaderPage title="Editar Questão"/>
+      <HeaderPage title="Editar Questão" />
 
       <!--FORM-->
-      <b-row>        
+      <b-row>
         <b-col cols="2"></b-col>
         <b-col cols="8">
           <form @submit.prevent="update">
@@ -64,7 +64,7 @@
                       type="text"
                       class="form-control"
                       id="txtAnswer"
-                      :placeholder="setPlaceHolder(index+1)"
+                      :placeholder="setPlaceHolder(index + 1)"
                       required
                     />
                   </div>
@@ -82,7 +82,9 @@
                       @click="removeAnswer(index)"
                       type="button"
                       class="btn btn-outline-danger mr-2"
-                    ><i class="fas fa-trash"></i> REMOVER</button>
+                    >
+                      <i class="fas fa-trash"></i> REMOVER
+                    </button>
                   </div>
                 </div>
               </div>
@@ -91,30 +93,35 @@
               @click="addAnswer"
               type="button"
               class="btn btn-outline-success mr-2"
-            ><i class="fas fa-plus-square"></i> ADICIONAR RESPOSTAS</button>
-            
-            <button type="submit" class="btn btn-outline-success mr-2"><i class="fas fa-save"></i> ATUALIZAR</button>
+            >
+              <i class="fas fa-plus-square"></i> ADICIONAR RESPOSTAS
+            </button>
+
+            <button type="submit" class="btn btn-outline-success mr-2">
+              <i class="fas fa-save"></i> ATUALIZAR
+            </button>
             <router-link
-              :to="{name: 'listQuestions'}"
+              :to="{ name: 'listQuestions' }"
               tag="button"
               class="btn btn-outline-danger"
-            ><i class="fas fa-window-close"></i> CANCELAR</router-link>
+              ><i class="fas fa-window-close"></i> CANCELAR</router-link
+            >
           </form>
         </b-col>
         <b-col cols="2"></b-col>
       </b-row>
-     </b-container>
+    </b-container>
   </section>
 </template>
 
 <script>
 import { EDIT_QUESTION } from "@/store/questions/question.constants";
 import router from "@/router";
-import HeaderPage from "@/components/HeaderPage.vue"
+import HeaderPage from "@/components/HeaderPage.vue";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "EditQuestion",  
+  name: "EditQuestion",
   components: {
     HeaderPage
   },
@@ -124,7 +131,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("question", ["getQuestionById","getMessage"])
+    ...mapGetters("question", ["getQuestionById", "getMessage"])
   },
   methods: {
     update() {
@@ -132,8 +139,8 @@ export default {
         .dispatch(`question/${EDIT_QUESTION}`, this.$data.question)
         .then(
           () => {
-            this.$alert(this.getMessage, "Questão atualizada!",  "success");
-            router.push({name: 'listQuestions'});
+            this.$alert(this.getMessage, "Questão atualizada!", "success");
+            router.push({ name: "listQuestions" });
           },
           err => {
             this.$alert(`${err.message}`, "Erro", "error");

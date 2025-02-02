@@ -19,7 +19,11 @@
               />
             </div>
             <div class="form-group">
-              <select id="sltGroup" class="form-control form-control-lg" v-model="animal.group">
+              <select
+                id="sltGroup"
+                class="form-control form-control-lg"
+                v-model="animal.group"
+              >
                 <option value>-- SELECIONA GRUPO --</option>
                 <option value="anfibio">ANFÍBIO</option>
                 <option value="ave">AVE</option>
@@ -81,14 +85,18 @@
                 placeholder="escreve link para som"
               />
             </div>
-            <button type="button" class="btn btn-outline-success btn-lg mr-2" @click="removeComments()">
+            <button
+              type="button"
+              class="btn btn-outline-success btn-lg mr-2"
+              @click="removeComments()"
+            >
               <i class="fas fa-edit"></i> REMOVER COMENTÁRIOS
             </button>
             <button type="submit" class="btn btn-outline-success btn-lg mr-2">
               <i class="fas fa-edit"></i> ATUALIZAR
             </button>
             <router-link
-              :to="{name: 'listAnimals'}"
+              :to="{ name: 'listAnimals' }"
               tag="button"
               class="btn btn-outline-danger btn-lg"
             >
@@ -123,8 +131,12 @@ export default {
   },
   methods: {
     removeComments() {
-      this.animal.comments.length = 0
-      this.$alert("Comentários removidos, clique em atualizar!", "Comentários!", "success");
+      this.animal.comments.length = 0;
+      this.$alert(
+        "Comentários removidos, clique em atualizar!",
+        "Comentários!",
+        "success"
+      );
     },
     update() {
       this.$store.dispatch(`animal/${EDIT_ANIMAL}`, this.$data.animal).then(

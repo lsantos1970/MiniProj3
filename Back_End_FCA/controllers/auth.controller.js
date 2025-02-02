@@ -49,26 +49,66 @@ exports.login = (req, res) => {
 }
 
 exports.checkAuth = (req, res, callback) => {
-    // return callback();
-    let token = req.headers.authorization;
-    if (!token) return res.status(AuthMessages.error.e1.http).send(AuthMessages.error.e1);
+    let authHeader = req.headers.authorization;
 
-    let payload = JWT.decode(token);
-
-    User.findOne({
-        "auth.public_key": payload.pk
-    }, (error, user) => {
-        if (error) throw error;
-        if (!user) return res.status(AuthMessages.error.e1.http).send(AuthMessages.error.e1);
-
-        JWT.verify(token, user.auth.private_key, (error) => {
-            if (error) return res.status(AuthMessages.error.e1.http).send(AuthMessages.error.e1);
-
-            req.user = user;
-            return callback();
-
+    if (!authHeader) {
+        return res.status(AuthMessages.error.e1.http).send({
+            ...AuthMessages.error.e1,
+            message: "Authorization header missing",
         });
+    }
 
+    let token = authHeader.split(' ')[1]; // Extrai o token do cabeçalho
+    if (!token) {
+        return res.status(AuthMessages.error.e1.http).send({
+            ...AuthMessages.error.e1,
+            message: "Token missing in Authorization header",
+        });
+    }
+
+    let payload;
+    try {
+        payload = JWT.decode(token); // Decodifica o token
+    } catch (error) {
+        return res.status(AuthMessages.error.e1.http).send({
+            ...AuthMessages.error.e1,
+            message: "Failed to decode token",
+        });
+    }
+
+    if (!payload || !payload.pk) {
+        return res.status(AuthMessages.error.e1.http).send({
+            ...AuthMessages.error.e1,
+            message: "Invalid token structure",
+        });
+    }
+
+    // Verifica o utilizador associado ao token
+    User.findOne({ "auth.public_key": payload.pk }, (error, user) => {
+        if (error) {
+            return res.status(AuthMessages.error.e1.http).send({
+                ...AuthMessages.error.e1,
+                message: "Database error",
+            });
+        }
+        if (!user) {
+            return res.status(AuthMessages.error.e1.http).send({
+                ...AuthMessages.error.e1,
+                message: "User not found",
+            });
+        }
+
+        // Verifica o token com a chave privada do utilizador
+        JWT.verify(token, user.auth.private_key, (error) => {
+            if (error) {
+                return res.status(AuthMessages.error.e1.http).send({
+                    ...AuthMessages.error.e1,
+                    message: "Failed to verify token",
+                });
+            }
+
+            req.user = user; // Associa o utilizador autenticado à requisição
+            return callback();
+        });
     });
-
 };

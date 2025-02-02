@@ -38,25 +38,31 @@ const actions = {
   [AUTH_LOGIN]: async ({ commit }, payload) => {
     return new Promise((resolve, reject) => {
       authService
-      .login(payload)
-      .then(res => {
-          commit(AUTH_LOGIN_SUCCESS, {token: res.token, profile: res.profile});
+        .login(payload)
+        .then(res => {
+          commit(AUTH_LOGIN_SUCCESS, {
+            token: res.token,
+            profile: res.profile
+          });
           commit(SET_MESSAGE, `Bem-vindo, ${res.profile.name}!`);
           resolve(res);
-      })
-      .catch(err => reject(err))
-      
-    })
+        })
+        .catch(err => reject(err));
+    });
   },
 
   [AUTH_REGISTER]: async ({ commit }, payload) => {
     return new Promise((resolve, reject) => {
-      authService.register(payload)
-      .then(res => {
-          commit(SET_MESSAGE, `O utilizador ${res.body.name} foi adicionado com sucesso!`);
+      authService
+        .register(payload)
+        .then(res => {
+          commit(
+            SET_MESSAGE,
+            `O utilizador ${res.body.name} foi adicionado com sucesso!`
+          );
           resolve(res);
-      })
-      .catch(err => reject(err))
+        })
+        .catch(err => reject(err));
     });
   },
 

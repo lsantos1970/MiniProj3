@@ -8,7 +8,7 @@
           v-for="(quiz, index) in quizzes"
           :key="quiz._id"
           :idQuiz="quiz._id"
-          :index="index+1"
+          :index="index + 1"
           :title="quiz.name"
         />
       </b-row>
@@ -26,7 +26,7 @@ export default {
     HeaderPage,
     QuizBox
   },
-   data: function() {
+  data: function() {
     return {
       quizzes: []
     };
@@ -36,24 +36,22 @@ export default {
   },
   methods: {
     fetchQuizzes() {
-      this.$store
-      .dispatch(`quiz/${FETCH_QUIZZES}`)
-      .then(
+      this.$store.dispatch(`quiz/${FETCH_QUIZZES}`).then(
         () => {
-          this.quizzes = this.getQuizzes
-          this.quizzes.sort(this.compareLevels)
+          this.quizzes = this.getQuizzes;
+          this.quizzes.sort(this.compareLevels);
         },
         err => this.$alert(`${err.message}`, "Erro", "error")
       );
     },
-compareLevels(q1, q2) {
+    compareLevels(q1, q2) {
       if (q1.level > q2.level) return 1;
       if (q1.level < q2.level) return -1;
       else return 0;
     }
   },
   created() {
-    this.fetchQuizzes()
+    this.fetchQuizzes();
   }
 };
 </script>

@@ -8,7 +8,7 @@
         <b-col>
           <b-button class="btn btn-info mr-2 p-2" @click="goBack()">
             <i class="fas fa-arrow-circle-left"></i> VOLTAR À PÁGINA ANTERIOR
-          </b-button>          
+          </b-button>
         </b-col>
         <b-col cols="2"></b-col>
       </b-row>
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     goBack() {
-      router.go(-1)
+      router.go(-1);
     },
     fetchUsers() {
       this.$store.dispatch(`user/${FETCH_USERS}`).then(

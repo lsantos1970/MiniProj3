@@ -4,7 +4,7 @@
       <HeaderPage :title="'Quiz nº' + quiz.level + ' - ' + quiz.name" />
       <b-row>
         <b-col cols="1"></b-col>
-        <b-col cols="10" align="right">{{seconds}}</b-col>
+        <b-col cols="10" align="right">{{ seconds }}</b-col>
         <b-col cols="1"></b-col>
       </b-row>
       <b-row>
@@ -21,7 +21,9 @@
                 >
                   <b-card
                     :title="question.question"
-                    :sub-title="'nível: ' + question.level + ' | tipo: ' + question.type"
+                    :sub-title="
+                      'nível: ' + question.level + ' | tipo: ' + question.type
+                    "
                   >
                     <b-card-text v-html="question.description" />
                     <b-form-group label="Respostas possíveis">
@@ -31,12 +33,18 @@
                         v-model="option"
                         name="some-radios"
                         :value="answer._id"
-                      >{{answer.title}}</b-form-radio>
+                        >{{ answer.title }}</b-form-radio
+                      >
                     </b-form-group>
-                    <b-button variant="outline-success" @click="setAnswer()">RESPONDER</b-button>
+                    <b-button variant="outline-success" @click="setAnswer()"
+                      >RESPONDER</b-button
+                    >
                   </b-card>
                 </b-tab>
-                <b-tab title="RESULTADOS" :disabled="currentQuestion <= quiz.questions.length">
+                <b-tab
+                  title="RESULTADOS"
+                  :disabled="currentQuestion <= quiz.questions.length"
+                >
                   <b-card-text class="text-center">
                     <div>
                       <h5>Respostas certas</h5>
@@ -60,15 +68,27 @@
                     <div v-if="quiz.questions.length === correctAnswers">
                       <i class="fas fa-smile fa-3x"></i>
                       <br />
-                      <h2>PARABÉNS, GANHASTE {{quiz.points}} PONTOS!</h2>
+                      <h2>PARABÉNS, GANHASTE {{ quiz.points }} PONTOS!</h2>
                       <br />
-                      <router-link :to="{name: 'quizzes'}" tag="b-button" variant="outline-success" class="mr-2">
+                      <router-link
+                        :to="{ name: 'quizzes' }"
+                        tag="b-button"
+                        variant="outline-success"
+                        class="mr-2"
+                      >
                         <i class="fas fa-poll-h"></i> JOGAR NOVO NÍVEL DO QUIZ
                       </router-link>
-                      <router-link :to="{name: 'home'}" tag="b-button" variant="outline-success" class="mr-2">
+                      <router-link
+                        :to="{ name: 'home' }"
+                        tag="b-button"
+                        variant="outline-success"
+                        class="mr-2"
+                      >
                         <i class="fas fa-home"></i> PÁGINA PRINCIPAL
                       </router-link>
-                      <b-button variant="outline-info" @click="evaluate()">VER ANIMAIS</b-button>
+                      <b-button variant="outline-info" @click="evaluate()"
+                        >VER ANIMAIS</b-button
+                      >
                     </div>
                     <div v-else>
                       <i class="fas fa-frown fa-3x"></i>
@@ -79,8 +99,11 @@
                         variant="outline-success"
                         @click="evaluate()"
                         class="mr-2"
-                      >JOGAR NOVAMENTE ESTE QUIZ</b-button>
-                      <b-button variant="outline-info" @click="evaluate()">VER ANIMAIS</b-button>
+                        >JOGAR NOVAMENTE ESTE QUIZ</b-button
+                      >
+                      <b-button variant="outline-info" @click="evaluate()"
+                        >VER ANIMAIS</b-button
+                      >
                     </div>
                   </b-card-text>
                 </b-tab>
@@ -92,8 +115,9 @@
       </b-row>
     </b-container>
     <pre>
-    {{this.$data}}
-  </pre>
+    {{ this.$data }}
+  </pre
+    >
   </section>
 </template>
 
@@ -145,10 +169,10 @@ export default {
       }
     },
     setScore(points) {
-      const user = this.getProfile 
-      user.gamification.points += points
-      user.gamification.quiz += 1
-      
+      const user = this.getProfile;
+      user.gamification.points += points;
+      user.gamification.quiz += 1;
+
       this.$store.dispatch(`user/${EDIT_USER}`, user).then(
         () => {
           //this.$alert("Score atualizado!", "Utilizador atualizado!", "success");

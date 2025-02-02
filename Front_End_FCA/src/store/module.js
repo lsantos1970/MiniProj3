@@ -1,13 +1,13 @@
 import emailService from "@/api/email.service";
-import { 
-  // Actions  
+import {
+  // Actions
   SEND_EMAIL,
   // Mutations
-  SET_MESSAGE 
+  SET_MESSAGE
 } from "./constants";
 
 const state = {
-  message:"",
+  message: "",
   userLevels: [
     { level: 1, name: "iniciante", avatar: "sapo", max: 100 },
     { level: 2, name: "aprendiz", avatar: "macaco", max: 200 },
@@ -19,26 +19,25 @@ const state = {
 
 const getters = {
   getUserLevelByPoints: state => points => {
-    return state.userLevels.find(userLevel => points <= userLevel.max)
+    return state.userLevels.find(userLevel => points <= userLevel.max);
   }
 };
 
 const actions = {
   [SEND_EMAIL]: ({ commit, rootState }, payload) => {
     return new Promise((resolve, reject) => {
-      emailService.sendEmail(rootState.auth.token, payload)
-        .then(
-          res => {
-            commit(SET_MESSAGE, "sucesso!");
-            resolve(res) 
-          },
-          err => {
-            commit(SET_MESSAGE, err.message)
-            reject(err)
-          }
-        );
+      emailService.sendEmail(rootState.auth.token, payload).then(
+        res => {
+          commit(SET_MESSAGE, "sucesso!");
+          resolve(res);
+        },
+        err => {
+          commit(SET_MESSAGE, err.message);
+          reject(err);
+        }
+      );
     });
-  },
+  }
 };
 
 export const mutations = {
@@ -53,4 +52,4 @@ export default {
   getters,
   actions,
   mutations
-}
+};

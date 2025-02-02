@@ -44,7 +44,7 @@
                 required
               />
             </div>
-            
+
             <div v-if="quiz.questions.length">
               <div class="row">
                 <div class="col-md-9">
@@ -59,7 +59,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-9">
-                   <select
+                    <select
                       v-model="question.id"
                       :key="index"
                       class="form-control"
@@ -69,10 +69,11 @@
                         v-for="q in getQuestionsByLevel"
                         :key="q._id"
                         :value="q._id"
-                      >{{q.question}}</option>
+                        >{{ q.question }}</option
+                      >
                     </select>
                   </div>
-                 
+
                   <div class="col-md-3">
                     <button
                       @click="removeQuestion(index)"
@@ -85,7 +86,11 @@
                 </div>
               </div>
             </div>
-            <button @click="addQuestion" type="button" class="btn btn-outline-success mr-2">
+            <button
+              @click="addQuestion"
+              type="button"
+              class="btn btn-outline-success mr-2"
+            >
               <i class="fas fa-plus-square"></i> ADICIONAR QUESTÕES
             </button>
 
@@ -93,7 +98,7 @@
               <i class="fas fa-save"></i> ATUALIZAR
             </button>
             <router-link
-              :to="{name: 'listQuizzes'}"
+              :to="{ name: 'listQuizzes' }"
               tag="button"
               class="btn btn-outline-danger"
             >
@@ -110,7 +115,7 @@
 <script>
 import { EDIT_QUIZ } from "@/store/quizzes/quiz.constants";
 import router from "@/router";
-import HeaderPage from "@/components/HeaderPage.vue"
+import HeaderPage from "@/components/HeaderPage.vue";
 import { FETCH_QUESTIONS } from "@/store/questions/question.constants";
 import { mapGetters } from "vuex";
 
@@ -129,7 +134,9 @@ export default {
     ...mapGetters("quiz", ["getQuizById", "getMessage"]),
     ...mapGetters("question", ["getQuestions"]),
     getQuestionsByLevel() {
-      return this.myQuestions.filter(question => question.level == this.quiz.level);
+      return this.myQuestions.filter(
+        question => question.level == this.quiz.level
+      );
     }
   },
   methods: {
@@ -137,23 +144,21 @@ export default {
       return `insira a ${index}ª resposta`;
     },
     addQuestion() {
-      this.quiz.questions.push({id:"" });
+      this.quiz.questions.push({ id: "" });
     },
     removeQuestion(index) {
       this.quiz.questions.splice(index, 1);
     },
     update() {
-      this.$store
-        .dispatch(`quiz/${EDIT_QUIZ}`, this.$data.quiz)
-        .then(
-          () => {
-            this.$alert(this.getMessage, "Quiz atualizado!","success");
-            router.push({name: 'listQuizzes'});
-          },
-          err => {
-            this.$alert(`${err.message}`, "Erro", "error");
-          }
-        );
+      this.$store.dispatch(`quiz/${EDIT_QUIZ}`, this.$data.quiz).then(
+        () => {
+          this.$alert(this.getMessage, "Quiz atualizado!", "success");
+          router.push({ name: "listQuizzes" });
+        },
+        err => {
+          this.$alert(`${err.message}`, "Erro", "error");
+        }
+      );
     }
   },
   created() {

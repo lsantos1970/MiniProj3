@@ -7,11 +7,14 @@
           <b-card class="overflow-hidden" style="max-width: 1540px; ">
             <b-row>
               <b-col md="6" align="center">
-                <b-card-img :src="animal.links[0].url" class="rounded-0 mb-2"></b-card-img>
+                <b-card-img
+                  :src="animal.links[0].url"
+                  class="rounded-0 mb-2"
+                ></b-card-img>
                 <br />
                 <b-button variant="danger" class="mr-2" @click="setComment()">
-                  <i class="fas fa-arrow-alt-circle-left"></i>
-                </b-button>&nbsp;1 de 3&nbsp;
+                  <i class="fas fa-arrow-alt-circle-left"></i> </b-button
+                >&nbsp;1 de 3&nbsp;
                 <b-button variant="danger" class="mr-2" @click="setComment()">
                   <i class="fas fa-arrow-alt-circle-right"></i>
                 </b-button>
@@ -21,20 +24,23 @@
                   <b-card-text align="left">
                     <!-- Level -->
                     <i class="fas fa-medal fa-lg ml-2"></i>
-                    {{animal.level}}
+                    {{ animal.level }}
                     <!-- Evaluation -->
                     <i class="fas fa-star fa-lg ml-2"></i>
-                    {{animal.evaluation.length}}
+                    {{ animal.evaluation.length }}
                     <!-- Comments -->
-                    <i class="fas fa-comment fa-lg ml-2" @click="showComments()"></i>
-                    {{animal.comments.length}}
+                    <i
+                      class="fas fa-comment fa-lg ml-2"
+                      @click="showComments()"
+                    ></i>
+                    {{ animal.comments.length }}
                     <!-- Ranking -->
                     <i class="fas fa-clipboard-list fa-lg ml-2"></i>
                     3
                   </b-card-text>
                   <b-card-text>
                     <b>Descrição:</b>
-                    {{animal.description}}
+                    {{ animal.description }}
                   </b-card-text>
                   <b-card-text>
                     <b>Comentários:</b>
@@ -44,10 +50,10 @@
                       v-for="comment in this.animal.comments"
                       :key="comment._id"
                     >
-                      <b>{{comment.user.name}}</b>
-                      ({{setCurrentDateTime(comment.date)}})
+                      <b>{{ comment.user.name }}</b>
+                      ({{ setCurrentDateTime(comment.date) }})
                       <br />
-                      {{comment.body}}
+                      {{ comment.body }}
                     </b-alert>
                   </b-card-text>
                   <b-card-text>
@@ -63,7 +69,11 @@
                         required
                       ></textarea>
                       <br />
-                      <b-button variant="danger" class="mr-2" @click="setComment()">
+                      <b-button
+                        variant="danger"
+                        class="mr-2"
+                        @click="setComment()"
+                      >
                         <i class="fas fa-comments"></i> COMENTAR
                       </b-button>
                       <b-button
@@ -75,7 +85,7 @@
                       </b-button>
 
                       <router-link
-                        :to="{name: 'animals'}"
+                        :to="{ name: 'animals' }"
                         tag="b-button"
                         variant="outline-danger"
                         align="center"
@@ -113,7 +123,7 @@ export default {
   computed: {
     ...mapGetters("animal", ["getAnimalsById", "getMessage"]),
     ...mapGetters("auth", ["getProfile"]),
-    ...mapGetters("user", ["getUsersById","getNameById"]),
+    ...mapGetters("user", ["getUsersById", "getNameById"]),
     ...mapGetters(["getUserLevelByPoints"])
   },
   methods: {

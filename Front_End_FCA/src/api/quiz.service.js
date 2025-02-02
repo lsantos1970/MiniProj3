@@ -1,12 +1,12 @@
-import API_URL from './config.js'
+import API_URL from "./config.js";
 
 export const quizService = {
   async getQuizzes(token) {
     const response = await fetch(`${API_URL}/quizzes`, {
       method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token
+        "Content-Type": "application/json",
+        Authorization: token
       }
     });
     if (response.ok) {
@@ -20,11 +20,11 @@ export const quizService = {
     const response = await fetch(`${API_URL}/quizzes`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token
+        "Content-Type": "application/json",
+        Authorization: token
       },
       body: JSON.stringify(payload)
-    })
+    });
     if (response.ok) {
       return await response.json();
     } else {
@@ -36,8 +36,8 @@ export const quizService = {
     const response = await fetch(`${API_URL}/quizzes/${payload._id}`, {
       method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token
+        "Content-Type": "application/json",
+        Authorization: token
       },
       body: JSON.stringify(payload)
     });
@@ -52,8 +52,8 @@ export const quizService = {
     const response = await fetch(`${API_URL}/quizzes/${id}`, {
       method: "DELETE",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': token
+        "Content-Type": "application/json",
+        Authorization: token
       }
     });
     if (response.ok) {
@@ -62,23 +62,22 @@ export const quizService = {
       throw Error(handleResponses(response.status));
     }
   }
-
 };
 
 function handleResponses(code) {
-  let message = ""
+  let message = "";
   switch (code) {
     case 401:
-      message = "Não está autorizado a executar esta ação!"
+      message = "Não está autorizado a executar esta ação!";
       break;
     case 409:
-      message = "Já existe um utilizador com este username!"
+      message = "Já existe um utilizador com este username!";
       break;
     default:
-      message = "Mensagem desconhecida"
+      message = "Mensagem desconhecida";
       break;
   }
-  return message
+  return message;
 }
 
 export default quizService;

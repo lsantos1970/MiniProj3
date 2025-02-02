@@ -13,7 +13,7 @@
     </div>
 
     <div>
-      <h2>{{ isEditing ? 'Edit Expert' : 'Add Expert' }}</h2>
+      <h2>{{ isEditing ? "Edit Expert" : "Add Expert" }}</h2>
       <form @submit.prevent="isEditing ? updateExpert() : addExpert()">
         <div>
           <label>Name:</label>
@@ -36,7 +36,7 @@
             <option value="xxxxx">Xxxxx</option>
           </select>
         </div>
-        <button type="submit">{{ isEditing ? 'Update' : 'Add' }}</button>
+        <button type="submit">{{ isEditing ? "Update" : "Add" }}</button>
         <button type="button" @click="resetForm">Cancel</button>
       </form>
     </div>
@@ -55,14 +55,14 @@ export default {
         name: "",
         email: "",
         phone: "",
-        category: "dogs",
+        category: "dogs"
       },
-      isEditing: false,
+      isEditing: false
     };
   },
   methods: {
     fetchExperts() {
-      axios.get("/api/experts").then((response) => {
+      axios.get("/api/experts").then(response => {
         this.experts = response.data;
       });
     },
@@ -93,14 +93,14 @@ export default {
         name: "",
         email: "",
         phone: "",
-        category: "dogs",
+        category: "dogs"
       };
       this.isEditing = false;
-    },
+    }
   },
   mounted() {
     this.fetchExperts();
-  },
+  }
 };
 </script>
 

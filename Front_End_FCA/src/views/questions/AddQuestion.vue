@@ -1,7 +1,7 @@
 <template>
   <section class="page-section">
     <b-container>
-      <HeaderPage title="Adicionar Questão"/>
+      <HeaderPage title="Adicionar Questão" />
 
       <!--FORM-->
       <b-row>
@@ -32,11 +32,11 @@
             <div class="form-group">
               <input
                 v-model="level"
-                type="text"                
+                type="text"
                 min="1"
                 max="5"
                 onmouseenter="(this.type='number')"
-                onmouseleave="(this.type='text')"                
+                onmouseleave="(this.type='text')"
                 class="form-control"
                 id="txtLevel"
                 placeholder="indica o nível da questão"
@@ -64,9 +64,8 @@
                       v-model.lazy="answer.title"
                       type="text"
                       class="form-control"
-                      id='txtAnswer'
-                      :placeholder="setPlaceHolder(index+1)"
-                      
+                      id="txtAnswer"
+                      :placeholder="setPlaceHolder(index + 1)"
                     />
                   </div>
                   <div class="col-md-2">
@@ -82,7 +81,9 @@
                       @click="removeAnswer(index)"
                       type="button"
                       class="btn btn-outline-danger mr-2"
-                    ><i class="fas fa-trash"></i> REMOVER</button>
+                    >
+                      <i class="fas fa-trash"></i> REMOVER
+                    </button>
                   </div>
                 </div>
               </div>
@@ -91,32 +92,37 @@
               @click="addAnswer"
               type="button"
               class="btn btn-outline-success mr-2"
-            ><i class="fas fa-plus-square"></i> ADICIONAR RESPOSTAS</button>
+            >
+              <i class="fas fa-plus-square"></i> ADICIONAR RESPOSTAS
+            </button>
             <!--<pre>{{ $data }}</pre>-->
-            <button type="submit" class="btn btn-outline-success mr-2"><i class="fas fa-save"></i> GRAVAR QUESTÃO</button>
+            <button type="submit" class="btn btn-outline-success mr-2">
+              <i class="fas fa-save"></i> GRAVAR QUESTÃO
+            </button>
             <router-link
-              :to="{name: 'listQuestions'}"
+              :to="{ name: 'listQuestions' }"
               tag="button"
               class="btn btn-outline-danger"
-            ><i class="fas fa-window-close"></i> CANCELAR</router-link>
+              ><i class="fas fa-window-close"></i> CANCELAR</router-link
+            >
           </form>
         </b-col>
         <b-col cols="2"></b-col>
       </b-row>
     </b-container>
-    <pre>{{$data}}</pre>
+    <pre>{{ $data }}</pre>
   </section>
 </template>
 
 <script>
 import { ADD_QUESTION } from "@/store/questions/question.constants";
 import router from "@/router";
-import HeaderPage from "@/components/HeaderPage.vue"
+import HeaderPage from "@/components/HeaderPage.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "AddQuestion",
-   components: {
+  components: {
     HeaderPage
   },
   data: () => {
@@ -139,22 +145,22 @@ export default {
       this.$store.dispatch(`question/${ADD_QUESTION}`, this.$data).then(
         () => {
           this.$alert(this.getMessage, "Questão adicionada!", "success");
-          router.push({name: 'listQuestions'});
+          router.push({ name: "listQuestions" });
         },
         err => {
           this.$alert(`${err.message}`, "Erro", "error");
         }
       );
-    },    
+    },
     setPlaceHolder: index => {
       return `insira a ${index}ª resposta`;
     },
     addAnswer() {
-      this.answers.push({ title: "", description:"", correct: false });
+      this.answers.push({ title: "", description: "", correct: false });
     },
     removeAnswer(index) {
       this.answers.splice(index, 1);
-    },
+    }
   }
 };
 </script>

@@ -1,37 +1,27 @@
 <template>
   <b-container fluid>
     <!-- Header -->
-        <header class="masthead bg-secondary text-white text-center">
-    <b-row>
-      <b-col>
-    
+    <header class="masthead bg-secondary text-white text-center">
+      <b-row>
+        <b-col>
           <img class="masthead-avatar mb-2" src="@/assets/animalec.png" />
           <p class="masthead-subheading font-weight-light">
             Aprender tudo sobre animais de uma forma divertida!
           </p>
-      </b-col>
-    </b-row>      
-          <b-row>
-            <b-col>
-              <b-button
-                variant="light"
-                href="#rules"
-                class="p-2 mr-2"
-              >
-                <i class="fas fa-info-circle mr-2"></i>COMO JOGAR?
-              </b-button>
-               <b-button
-                variant="danger"                
-                
-                class="p-2 mr-2"
-                @click="showRanking()"
-              >
-               <i class="fas fa-chart-line mr-2"></i>VER RANKING
-              </b-button>
-            </b-col>
-          </b-row>
-        </header>
-      
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <b-button variant="light" href="#rules" class="p-2 mr-2">
+            <i class="fas fa-info-circle mr-2"></i>COMO JOGAR?
+          </b-button>
+          <b-button variant="danger" class="p-2 mr-2" @click="showRanking()">
+            <i class="fas fa-chart-line mr-2"></i>VER RANKING
+          </b-button>
+        </b-col>
+      </b-row>
+    </header>
+
     <!-- Rules section -->
     <section class="page-section bg-primary" id="rules">
       <b-container fluid>
@@ -45,14 +35,16 @@
           <b-col class="text-center">
             <i class="fas fa-hippo fa-3x" style="color:white"></i>
             <p>
-              1 - Seleciona <strong>ANIMAIS</strong> e estuda tudo sobre os animais que tens disponíveis!
+              1 - Seleciona <strong>ANIMAIS</strong> e estuda tudo sobre os
+              animais que tens disponíveis!
             </p>
           </b-col>
           <b-col cols="2"></b-col>
           <b-col class="text-center">
             <i class="fas fa-comment fa-3x" style="color:white"></i>
-            <p>2 - Mostra quem são os teus animais preferidos e fala com os teus
-            amigos sobre qualquer animal!
+            <p>
+              2 - Mostra quem são os teus animais preferidos e fala com os teus
+              amigos sobre qualquer animal!
             </p>
           </b-col>
           <b-col cols="2"></b-col>
@@ -61,20 +53,22 @@
           <b-col cols="2"></b-col>
           <b-col class="text-center">
             <i class="fas fa-table fa-3x" style="color:white"></i>
-            <p>3 - Quando te sentires preparado, seleciona <strong>QUIZZES </strong>e começa a
-            jogar!
+            <p>
+              3 - Quando te sentires preparado, seleciona
+              <strong>QUIZZES </strong>e começa a jogar!
             </p>
           </b-col>
           <b-col cols="2"></b-col>
           <b-col class="text-center">
             <i class="fas fa-medal fa-3x" style="color:white"></i>
-            <p>4 - À medida que fores avançando, ganhas pontos, desbloqueias
-            novos animais e sobes no ranking dos maiores especialistas de animais
-            do planeta!</p>
+            <p>
+              4 - À medida que fores avançando, ganhas pontos, desbloqueias
+              novos animais e sobes no ranking dos maiores especialistas de
+              animais do planeta!
+            </p>
           </b-col>
           <b-col cols="2"></b-col>
         </b-row>
-
       </b-container>
     </section>
     <!-- Contact Section -->
@@ -138,20 +132,10 @@
           <b-row>
             <b-col cols="2"></b-col>
             <b-col>
-              <b-button
-                type="submit"
-                variant="success"
-                
-                class="p-2 mr-2"
-              >
+              <b-button type="submit" variant="success" class="p-2 mr-2">
                 <i class="fas fa-envelope-square mr-2"></i>ENVIAR
               </b-button>
-              <b-button
-                type="reset"
-                variant="danger"
-                
-                class="p-2"
-              >
+              <b-button type="reset" variant="danger" class="p-2">
                 <i class="fas fa-eraser mr-2"></i>LIMPAR
               </b-button>
             </b-col>
